@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 239 68 68;
+    --color-cyan: 56 189 248;
+    --color-bg: 7 13 29;
+  }
+
+  body {
+    background-color: #070D1D;
+    color: #F8FAFC;
+    overflow-x: hidden;
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(13, 22, 48, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(239, 68, 68, 0.35);
+  box-shadow: 0 12px 30px -10px rgba(239, 68, 68, 0.25);
+}
+
+/* Neon Glows */
+.glow-red {
+  box-shadow: 0 0 25px -4px rgba(239, 68, 68, 0.5);
+}
+
+.glow-red-lg {
+  box-shadow: 0 0 50px -5px rgba(239, 68, 68, 0.45);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -4px rgba(56, 189, 248, 0.5);
+}
+
+.glow-cyan-lg {
+  box-shadow: 0 0 50px -5px rgba(56, 189, 248, 0.45);
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #38BDF8 0%, #00D2FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-red {
+  background: linear-gradient(135deg, #F43F5E 0%, #EF4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glowing Neon Arch Shelf */
+.neon-shelf {
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-shelf::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #EF4444 20%, #F43F5E 50%, #EF4444 80%, transparent 100%);
+  box-shadow: 0 0 20px 4px rgba(239, 68, 68, 0.7), 0 0 40px 8px rgba(239, 68, 68, 0.4);
+  border-radius: 50%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070D1D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #EF4444;
+}
+
+/* Animations */
+@keyframes floatUpAndDown {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(0.5deg);
+  }
+}
+
+.animate-floating {
+  animation: floatUpAndDown 5s ease-in-out infinite;
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 30s linear infinite;
+}
