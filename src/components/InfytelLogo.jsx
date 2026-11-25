@@ -14,7 +14,8 @@ export default function InfytelLogo({ className = "h-8 sm:h-9 w-auto", onClick }
           src={logoImg} 
           alt="Infytel Logo" 
           onError={() => setImgError(true)}
-          className="h-full w-auto max-h-10 object-contain transition-transform group-hover:scale-105 duration-200" 
+          className="h-full w-auto
+           max-h-10 object-contain transition-transform group-hover:scale-105 duration-200" 
         />
       ) : (
         <svg 
