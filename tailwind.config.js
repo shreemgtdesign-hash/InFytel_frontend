@@ -13,7 +13,7 @@ export default {
           navy: '#0B132B',
           card: '#0D1630',
           cardBorder: 'rgba(255, 255, 255, 0.08)',
-          red: '#EF4444',
+          red: '#E12C2C',
           crimson: '#E11D48',
           rose: '#F43F5E',
           cyan: '#38BDF8',

@@ -36,7 +36,7 @@ export default function Testimonials({ data }) {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider mb-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
             CLIENT TESTIMONIALS
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight">
@@ -56,7 +56,7 @@ export default function Testimonials({ data }) {
             </button>
             <button
               onClick={() => setPage((prev) => (prev < totalPages - 1 ? prev + 1 : 0))}
-              className="p-3 rounded-xl bg-slate-900 text-white hover:bg-[#EF4444] shadow-sm transition-colors"
+              className="p-3 rounded-xl bg-slate-900 text-white hover:bg-[#E12C2C] shadow-sm transition-colors"
               aria-label="Next testimonials"
             >
               <ChevronRight className="w-5 h-5" />

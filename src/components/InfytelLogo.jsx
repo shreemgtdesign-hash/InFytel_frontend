@@ -30,7 +30,7 @@ export default function InfytelLogo({ className = "h-8 sm:h-9 w-auto", onClick }
             </linearGradient>
             <linearGradient id="infytelRed" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#F43F5E" />
-              <stop offset="100%" stopColor="#EF4444" />
+              <stop offset="100%" stopColor="#E12C2C" />
             </linearGradient>
           </defs>
 

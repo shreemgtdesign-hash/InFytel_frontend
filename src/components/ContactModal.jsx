@@ -52,7 +52,7 @@ export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a 
             </p>
             <button
               onClick={onClose}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#EF4444] to-[#F43F5E] text-white font-bold text-sm shadow-glow-red-sm"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#E12C2C] to-[#F43F5E] text-white font-bold text-sm shadow-glow-red-sm"
             >
               Back to Infytel
             </button>
@@ -60,7 +60,7 @@ export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a 
         ) : (
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+              <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
               {initialSubject}
             </div>
 
@@ -142,7 +142,7 @@ export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a 
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#EF4444] via-[#F43F5E] to-[#E11D48] text-white font-bold text-sm shadow-[0_6px_25px_rgba(239,68,68,0.5)] hover:shadow-[0_8px_30px_rgba(239,68,68,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#E12C2C] via-[#F43F5E] to-[#E11D48] text-white font-bold text-sm shadow-[0_6px_25px_rgba(239,68,68,0.5)] hover:shadow-[0_8px_30px_rgba(239,68,68,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2"
               >
                 {submitting ? (
                   <span>Dispatching to Engineering Desk...</span>

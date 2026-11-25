@@ -45,7 +45,7 @@ export default function EmpoweringBusiness({ data, onNavigate }) {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
             ABOUT INFYTEL
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-[1.15]">
@@ -55,7 +55,7 @@ export default function EmpoweringBusiness({ data, onNavigate }) {
 
         <button 
           onClick={() => onNavigate && onNavigate('about')}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-white hover:bg-[#EF4444] text-sm font-semibold transition-all duration-200 shadow-md group self-start md:self-end"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-white hover:bg-[#E12C2C] text-sm font-semibold transition-all duration-200 shadow-md group self-start md:self-end"
         >
           <span>About Infytel</span>
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -135,14 +135,14 @@ export default function EmpoweringBusiness({ data, onNavigate }) {
                 key={st.id}
                 className={`p-6 sm:p-7 rounded-3xl transition-all duration-300 flex flex-col justify-between ${
                   isRed 
-                    ? 'bg-gradient-to-br from-[#EF4444] via-[#F43F5E] to-[#DC2626] text-white shadow-[0_15px_30px_rgba(239,68,68,0.35)] transform hover:-translate-y-1' 
+                    ? 'bg-gradient-to-br from-[#E12C2C] via-[#F43F5E] to-[#DC2626] text-white shadow-[0_15px_30px_rgba(239,68,68,0.35)] transform hover:-translate-y-1' 
                     : 'bg-slate-50 border border-slate-200/80 hover:border-slate-300 text-slate-900 hover:shadow-lg transform hover:-translate-y-1'
                 }`}
               >
                 <div>
                   <div className={`text-3xl sm:text-4xl font-black tracking-tight mb-2 ${isRed ? 'text-white' : 'text-slate-950'}`}>
                     {st.numericValue}
-                    <span className={`text-xl sm:text-2xl font-bold ml-1 ${isRed ? 'text-white/90' : 'text-[#EF4444]'}`}>
+                    <span className={`text-xl sm:text-2xl font-bold ml-1 ${isRed ? 'text-white/90' : 'text-[#E12C2C]'}`}>
                       {st.suffix}
                     </span>
                   </div>

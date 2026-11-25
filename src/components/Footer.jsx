@@ -47,7 +47,7 @@ export default function Footer({ onNavigate, onOpenQuote }) {
                 href="https://infytel.ng" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-8 h-8 rounded-xl bg-white/5 hover:bg-[#EF4444] hover:text-white flex items-center justify-center text-slate-300 transition-colors"
+                className="w-8 h-8 rounded-xl bg-white/5 hover:bg-[#E12C2C] hover:text-white flex items-center justify-center text-slate-300 transition-colors"
                 aria-label="Website"
               >
                 <Globe className="w-4 h-4" />
@@ -146,7 +146,7 @@ export default function Footer({ onNavigate, onOpenQuote }) {
 
             <div className="space-y-3">
               <div className="flex items-start gap-2 text-slate-400">
-                <MapPin className="w-4 h-4 text-[#EF4444] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#E12C2C] shrink-0 mt-0.5" />
                 <span>Plot 1661, Oyin Jolayemi Street, Victoria Island, Lagos, Nigeria</span>
               </div>
 

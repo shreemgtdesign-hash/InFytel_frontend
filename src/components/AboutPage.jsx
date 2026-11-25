@@ -39,7 +39,7 @@ export default function AboutPage({ data, onOpenQuote }) {
         <div className="absolute right-28 top-36 w-[180px] h-[180px] rounded-full border border-red-500/20 pointer-events-none -z-10"></div>
 
         <div className="max-w-3xl">
-          <span className="text-xs font-bold text-[#EF4444] uppercase tracking-wider font-mono block mb-4">
+          <span className="text-xs font-bold text-[#E12C2C] uppercase tracking-wider font-mono block mb-4">
             {hero.badge || "# ABOUT INFYTEL"}
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight mb-6">
@@ -58,7 +58,7 @@ export default function AboutPage({ data, onOpenQuote }) {
           {/* Left Column: Who We Are text */}
           <div className="lg:col-span-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider mb-4">
-              <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+              <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
               WHO WE ARE
             </div>
 
@@ -72,7 +72,7 @@ export default function AboutPage({ data, onOpenQuote }) {
 
             {whoWeAre.headOffice && (
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700 flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#EF4444] shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-[#E12C2C] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold block text-slate-900 uppercase font-mono text-[10px]">Head Office</span>
                   <span>{whoWeAre.headOffice}</span>
@@ -93,7 +93,7 @@ export default function AboutPage({ data, onOpenQuote }) {
                 key={st.step}
                 className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition-all duration-200 flex items-start gap-4"
               >
-                <div className="w-8 h-8 rounded-full bg-[#EF4444] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md">
+                <div className="w-8 h-8 rounded-full bg-[#E12C2C] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md">
                   {st.step}
                 </div>
                 <div>
@@ -118,7 +118,7 @@ export default function AboutPage({ data, onOpenQuote }) {
         
         <div className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider mb-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
             INDUSTRIES & VERTICALS
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight">
@@ -180,7 +180,7 @@ export default function AboutPage({ data, onOpenQuote }) {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest font-mono">
               TECHNOLOGY PARTNERS
             </span>
@@ -201,7 +201,7 @@ export default function AboutPage({ data, onOpenQuote }) {
               className="p-5 rounded-2xl bg-[#0B132B]/70 border border-white/10 hover:border-cyan-400/50 shadow-md transition-all duration-200 flex flex-col justify-between group"
             >
               <div>
-                <span className="text-[10px] font-bold text-[#EF4444] uppercase font-mono block mb-1">
+                <span className="text-[10px] font-bold text-[#E12C2C] uppercase font-mono block mb-1">
                   {p.tier || "Partner"}
                 </span>
                 <h4 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">

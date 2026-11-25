@@ -16,7 +16,7 @@ export default function CtaBanner({ data, onOpenQuote }) {
 
         <div className="relative z-10 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444] animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C] animate-pulse"></span>
             TRANSFORM YOUR ICT OPERATIONS
           </div>
 
@@ -32,7 +32,7 @@ export default function CtaBanner({ data, onOpenQuote }) {
             {/* Primary Action Button */}
             <button
               onClick={() => onOpenQuote && onOpenQuote('Talk to an Expert')}
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#EF4444] via-[#F43F5E] to-[#E11D48] text-white font-bold text-sm sm:text-base shadow-[0_8px_30px_rgba(239,68,68,0.5)] hover:shadow-[0_12px_40px_rgba(239,68,68,0.7)] active:scale-95 transition-all duration-200 flex items-center gap-2 group"
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#E12C2C] via-[#F43F5E] to-[#E11D48] text-white font-bold text-sm sm:text-base shadow-[0_8px_30px_rgba(239,68,68,0.5)] hover:shadow-[0_12px_40px_rgba(239,68,68,0.7)] active:scale-95 transition-all duration-200 flex items-center gap-2 group"
             >
               <span>Talk to an expert</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

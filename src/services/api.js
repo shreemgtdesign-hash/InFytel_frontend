@@ -731,11 +731,144 @@ export const HOME_DEFAULT_DATA = {
     ]
   },
   "realOutcomes": {
+    "badge": "SUCCESS STORIES",
     "headline": "Real outcomes for real businesses",
-    "subtitle": "Quantifiable results achieved for clients across Africa.",
+    "subtitle": "How we've helped banks, retailers and insurers solve hard problems with the right technology.",
+    "kpis": [
+      {
+        "id": "bb016690-a969-4d2d-b233-4a2b070d515e",
+        "key": "projects_delivered",
+        "label": "Projects delivered",
+        "value": 104,
+        "icon": "target",
+        "displayOrder": 1
+      },
+      {
+        "id": "f0957513-6995-4288-b5c7-ae6d040d16b3",
+        "key": "active_clients",
+        "label": "Active clients",
+        "value": 83,
+        "icon": "users",
+        "displayOrder": 2
+      },
+      {
+        "id": "7a8f4e94-1cc6-4c7f-8bbb-c8b155fcfae2",
+        "key": "solutions_live",
+        "label": "Solutions live",
+        "value": 31,
+        "icon": "layers",
+        "displayOrder": 3
+      },
+      {
+        "id": "26929020-05c7-4656-a5fb-47741848f1fe",
+        "key": "sectors_served",
+        "label": "Sectors served",
+        "value": 4,
+        "icon": "building",
+        "displayOrder": 4
+      }
+    ],
+    "growthChart": {
+      "title": "Growth since 2021",
+      "subtitle": "Projects delivered per year",
+      "defaultMetric": "projects",
+      "yAxisTicks": [0, 30, 60, 90, 120],
+      "toggles": [
+        {
+          "key": "projects",
+          "label": "Projects",
+          "subtitle": "Projects delivered per year",
+          "unitLabel": "projects delivered"
+        },
+        {
+          "key": "clients",
+          "label": "Clients",
+          "subtitle": "Active clients per year",
+          "unitLabel": "active clients"
+        }
+      ],
+      "series": [
+        {
+          "id": "949cd6a1-6117-4be1-b777-26ced56e8c2c",
+          "year": 2021,
+          "projectsCount": 32,
+          "clientsCount": 18
+        },
+        {
+          "id": "4600df06-ab8c-458b-9e99-a003ecef8b04",
+          "year": 2022,
+          "projectsCount": 48,
+          "clientsCount": 31
+        },
+        {
+          "id": "9a66fbde-607f-4e4a-8e13-4edd7919861b",
+          "year": 2023,
+          "projectsCount": 74,
+          "clientsCount": 47
+        },
+        {
+          "id": "0e73349f-47a5-4a56-9795-a6d9f8e80f07",
+          "year": 2024,
+          "projectsCount": 60,
+          "clientsCount": 54
+        },
+        {
+          "id": "2c2dad9f-1986-4569-8583-1351bc9b913e",
+          "year": 2025,
+          "projectsCount": 60,
+          "clientsCount": 65
+        },
+        {
+          "id": "40440d72-dd21-423e-b432-fd91dc751063",
+          "year": 2026,
+          "projectsCount": 120,
+          "clientsCount": 83
+        }
+      ]
+    },
+    "sectorBreakdown": {
+      "title": "Projects by sector",
+      "subtitle": "Share of delivered projects",
+      "centerValue": 104,
+      "centerLabel": "projects",
+      "sectors": [
+        {
+          "id": "00a7df33-6e9c-4296-ad8b-b4958ecda035",
+          "name": "Financial Services",
+          "slug": "financial-services",
+          "projectSharePercent": 75,
+          "chartColor": "#00B4D8",
+          "outcomeDisplayOrder": 1
+        },
+        {
+          "id": "60d84d16-9f3e-415e-98ee-8461cd687dad",
+          "name": "Government",
+          "slug": "government",
+          "projectSharePercent": 16,
+          "chartColor": "#FB923C",
+          "outcomeDisplayOrder": 2
+        },
+        {
+          "id": "de1392f3-49bf-4495-9c70-f5e6ceb37628",
+          "name": "Real Estate",
+          "slug": "real-estate",
+          "projectSharePercent": 25,
+          "chartColor": "#FB7185",
+          "outcomeDisplayOrder": 3
+        },
+        {
+          "id": "424e9ef9-0001-426c-8799-67d775c7cfa4",
+          "name": "Hospitality",
+          "slug": "hospitality",
+          "projectSharePercent": 38,
+          "chartColor": "#FFFFFF",
+          "outcomeDisplayOrder": 4
+        }
+      ]
+    },
     "caseStudies": [
       {
-        "id": "c4ec444b-be22-48bd-bcd7-16cdfdb16ff1",
+        "id": "3713d06e-26a5-4673-a92e-b3a419815455",
         "title": "Tier-1 Commercial Bank AML Transformation",
         "slug": "commercial-bank-aml-transformation",
         "sector": "FINANCIAL SECTOR",
@@ -750,7 +883,7 @@ export const HOME_DEFAULT_DATA = {
         "isFeatured": true
       },
       {
-        "id": "5f10ff91-961d-4f83-8716-eb776de02d37",
+        "id": "01fea90d-8129-437d-a340-209e9f0faee3",
         "title": "Microfinance Agency Banking Scale",
         "slug": "microfinance-agency-banking-scale",
         "sector": "MICROFINANCE BANKING",
@@ -765,7 +898,7 @@ export const HOME_DEFAULT_DATA = {
         "isFeatured": true
       },
       {
-        "id": "80a6ab0d-7176-4211-805e-962b35f30bde",
+        "id": "096c1e7d-6810-462e-b05d-0c50fafead8f",
         "title": "Healthcare & Enterprise Unified Helpdesk",
         "slug": "healthcare-unified-helpdesk",
         "sector": "HEALTHCARE / ENTERPRISE",
@@ -1155,7 +1288,7 @@ export const ABOUT_DEFAULT_DATA = {
   }
 };
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://infytel-backend.onrender.com/api';
 
 /**
  * Fetch with timeout helper
@@ -1185,6 +1318,20 @@ export async function getHomeData() {
     console.info('[Infytel API] Using cached Home data:', err.message);
   }
   return { data: HOME_DEFAULT_DATA, isLive: false };
+}
+
+export async function getSuccessStories() {
+  try {
+    const res = await fetchWithTimeout(`${API_BASE_URL}/home/success-stories`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const json = await res.json();
+    if (json && json.success && json.data) {
+      return { data: json.data, isLive: true };
+    }
+  } catch (err) {
+    console.info('[Infytel API] Using cached Success Stories data:', err.message);
+  }
+  return { data: HOME_DEFAULT_DATA.realOutcomes, isLive: false };
 }
 
 export async function getAboutData() {

@@ -18,7 +18,7 @@ import AboutPage from './components/AboutPage.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
 
-import { getHomeData, getAboutData } from './services/api.js';
+import { getHomeData, getAboutData, getSuccessStories } from './services/api.js';
 
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState('home'); // 'home' | 'about'
@@ -34,15 +34,32 @@ export default function App() {
 
   // Initial Hero Slide Index: 0 -> Why Infytel
   const [activeSlideIdx, setActiveSlideIdx] = useState(0);
+  const [heroCardsEntranceDone, setHeroCardsEntranceDone] = useState(false);
+
+  // Entrance animation completes after initial load; prevent any re-triggers when switching cards
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHeroCardsEntranceDone(true);
+    }, 2200);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Fetch API data on mount
   useEffect(() => {
     async function loadAllData() {
       setLoading(true);
-      const [hRes, aRes] = await Promise.all([getHomeData(), getAboutData()]);
-      setHomeData(hRes.data);
+      const [hRes, aRes, sRes] = await Promise.all([
+        getHomeData(),
+        getAboutData(),
+        getSuccessStories()
+      ]);
+      const mergedHomeData = {
+        ...hRes.data,
+        realOutcomes: sRes?.data || hRes.data?.realOutcomes
+      };
+      setHomeData(mergedHomeData);
       setAboutData(aRes.data);
-      setIsLiveApi(hRes.isLive || aRes.isLive);
+      setIsLiveApi(hRes.isLive || aRes.isLive || sRes.isLive);
       setLoading(false);
 
       // Default to Why Infytel (displayOrder 1 or WHY_INFYTEL)
@@ -58,33 +75,89 @@ export default function App() {
   const heroSlides = homeData?.heroSlides || [];
   const currentSlide = heroSlides[activeSlideIdx] || heroSlides[0] || {};
 
+  // Exact slide content dictionary matching the Figma design specifications line-by-line
+  const slideConfig = {
+    'WHY_INFYTEL': {
+      badge: 'Welcome to Infytel',
+      headlinePart1: 'Powering growth',
+      headlinePart2: 'With technology.',
+      descLines: [
+        'Infytel Communications is a Lagos-based IT company',
+        'delivering AI, fintech, cloud and cybersecurity solutions to',
+        "Africa's leading banks, government bodies and enterprises."
+      ],
+      primaryCta: 'Explore Services',
+      secondaryCta: 'Discover Infytel'
+    },
+    'AI_AUTOMATION': {
+      badge: 'AI-Powered Automation',
+      headlinePart1: 'Smarter service.',
+      headlinePart2: 'Happier Customers.',
+      descLines: [
+        "Infytel's AI chatbots answer, route and resolve customer",
+        'queries across WhatsApp, web and mobile — instantly, in any',
+        'language.'
+      ],
+      primaryCta: 'Explore Services',
+      secondaryCta: 'Explore AI Chatbot'
+    },
+    'FINANCIAL_TECH': {
+      badge: 'Fintech Solutions',
+      headlinePart1: 'Safer Payment.',
+      headlinePart2: 'Faster Growth.',
+      descLines: [
+        'From card issuing to anti-money laundering and fraud risk',
+        "management — trusted by Africa's leading banks to move",
+        'money securely.'
+      ],
+      primaryCta: 'Explore Services',
+      secondaryCta: 'Explore Cards and Payments'
+    },
+    'CYBERSECURITY': {
+      badge: 'Cybersecurity',
+      headlinePart1: 'Stronger defence.',
+      headlinePart2: 'Zero downtime.',
+      descLines: [
+        'Unified threat management, privileged access and round-',
+        'the-clock network monitoring that stop attacks before they',
+        'reach you.'
+      ],
+      primaryCta: 'Get in touch',
+      secondaryCta: 'Explore IT Security'
+    }
+  };
+
   // 4 Pillar tabs matching the exact design and user screenshot
   const pillarTabs = [
     {
       id: 'why-infytel',
       title: 'Why Infytel',
-      desc: '31 solution one trusted technology partener',
+      descLine1: '31 solution one trusted',
+      descLine2: 'technology partener',
       icon: Sparkles,
       slidePillar: 'WHY_INFYTEL'
     },
     {
       id: 'ai-chatbot',
       title: 'AI Chatbot',
-      desc: '24/7 smart conversations on every channel.',
+      descLine1: '24/7 smart conversations on',
+      descLine2: 'every channel.',
       icon: Bot,
       slidePillar: 'AI_AUTOMATION'
     },
     {
       id: 'card-payments',
       title: 'Card & Payments',
-      desc: 'Secure card issuing, AML and fraud control.',
+      descLine1: 'Secure card issuing, AML and',
+      descLine2: 'fraud control.',
       icon: CreditCard,
       slidePillar: 'FINANCIAL_TECH'
     },
     {
       id: 'it-security',
       title: 'IT Security',
-      desc: 'SASE, PAM and 24/7 threat monitoring.',
+      descLine1: 'SASE, PAM and 24/7 threat',
+      descLine2: 'monitoring.',
       icon: ShieldCheck,
       slidePillar: 'CYBERSECURITY'
     }
@@ -92,6 +165,7 @@ export default function App() {
 
   // Helper to switch slide by pillar
   const selectPillar = (pillarName) => {
+    setHeroCardsEntranceDone(true);
     const idx = heroSlides.findIndex(s => s.pillar === pillarName);
     if (idx !== -1) setActiveSlideIdx(idx);
   };
@@ -114,96 +188,85 @@ export default function App() {
     setQuoteModalOpen(true);
   };
 
+  const currentPillar = currentSlide.pillar || 'WHY_INFYTEL';
+  const slideText = slideConfig[currentPillar] || slideConfig['WHY_INFYTEL'];
+
   return (
     <div className={`min-h-screen bg-[#070D1D] text-slate-100 ${isDark ? 'dark' : ''}`}>
       
-      {/* 1. TOP NAVBAR */}
-      <Navbar 
-        currentRoute={currentRoute}
-        onNavigate={handleNavigate}
-        onOpenQuote={handleOpenQuote}
-        isLiveApi={isLiveApi}
-        isDark={isDark}
-        onToggleTheme={() => setIsDark(!isDark)}
-      />
+      {currentRoute === 'home' ? (
+        <>
+          {/* INITIAL SCREEN HERO SECTION (100% viewport coverage on desktop) */}
+          <section className="relative min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between hero-cyber-bg overflow-hidden select-none">
+            {/* 1. TOP NAVBAR */}
+            <Navbar 
+              currentRoute={currentRoute}
+              onNavigate={handleNavigate}
+              onOpenQuote={handleOpenQuote}
+              isLiveApi={isLiveApi}
+              isDark={isDark}
+              onToggleTheme={() => setIsDark(!isDark)}
+            />
 
-      {/* 2. MAIN CONTENT BODY */}
-      <main>
-        {currentRoute === 'home' ? (
-          <div>
-            {/* HERO SECTION */}
-            <section className="relative pt-8 sm:pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-              
-              {/* Background ambient lighting */}
-              <div className="absolute top-10 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-              <div className="absolute top-20 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-              {/* Main Hero Split Grid: Left Text + Right 3D Visual */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16">
+            {/* 2. MIDDLE HERO CONTENT SPLIT */}
+            <div className="flex-1 min-h-0 flex items-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full py-1 sm:py-2 lg:py-3 z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
                 
                 {/* Left Column: Headline, Description & Dual CTA */}
                 <div className="lg:col-span-6 z-10 max-w-2xl">
-                  
                   {/* Top Badge with glowing red dot */}
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs font-semibold text-slate-300 mb-6 shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-[#EF4444] shadow-[0_0_8px_#EF4444]"></span>
+                  <div 
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D1527]/90 border border-white/10 text-xs font-semibold text-slate-300 mb-3 sm:mb-4 shadow-sm animate-hero-fade-down"
+                    style={{ animationDelay: '180ms' }}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-[#E12C2C] shadow-[0_0_8px_#E12C2C]"></span>
                     <span>
-                      {currentSlide.badge || 'Welcome to Infytel'}
+                      {slideText.badge}
                     </span>
                   </div>
 
                   {/* Dynamic Headline with Dual Colored Text */}
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
-                    {currentSlide.pillar === 'WHY_INFYTEL' ? (
-                      <>
-                        Powering growth <br />
-                        <span className="text-[#38BDF8]">With technology.</span>
-                      </>
-                    ) : currentSlide.pillar === 'AI_AUTOMATION' ? (
-                      <>
-                        Smarter service. <br />
-                        <span className="text-[#38BDF8]">Happier Customers.</span>
-                      </>
-                    ) : currentSlide.pillar === 'FINANCIAL_TECH' ? (
-                      <>
-                        Safer Payment. <br />
-                        <span className="text-[#38BDF8]">Faster Growth.</span>
-                      </>
-                    ) : currentSlide.pillar === 'CYBERSECURITY' ? (
-                      <>
-                        Stronger defence. <br />
-                        <span className="text-[#38BDF8]">Zero downtime.</span>
-                      </>
-                    ) : (
-                      <>
-                        Powering growth <br />
-                        <span className="text-[#38BDF8]">With technology.</span>
-                      </>
-                    )}
+                  <h1 
+                    className="text-4xl sm:text-5xl lg:text-[46px] xl:text-[52px] font-extrabold text-white tracking-[-0.03em] leading-[1.1] mb-3 sm:mb-4 animate-hero-fade-up"
+                    style={{ animationDelay: '320ms' }}
+                  >
+                    {slideText.headlinePart1} <br />
+                    <span className="text-[#38BDF8]">{slideText.headlinePart2}</span>
                   </h1>
 
-                  {/* Subtitle / Description */}
-                  <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-                    {currentSlide.description}
+                  {/* Subtitle / Description with exact line formatting matching the design */}
+                  <p 
+                    className="text-slate-300 text-sm sm:text-[15px] lg:text-base leading-[1.65] font-normal mb-4 sm:mb-6 max-w-xl animate-hero-fade-up"
+                    style={{ animationDelay: '460ms' }}
+                  >
+                    {slideText.descLines.map((line, idx) => (
+                      <React.Fragment key={idx}>
+                        {line}
+                        {idx < slideText.descLines.length - 1 && <br className="hidden sm:inline" />}
+                      </React.Fragment>
+                    ))}
                   </p>
 
                   {/* Dual CTA Buttons */}
-                  <div className="flex flex-wrap items-center gap-4">
+                  <div 
+                    className="flex flex-wrap items-center gap-3 sm:gap-4 animate-hero-fade-up"
+                    style={{ animationDelay: '600ms' }}
+                  >
                     {/* Primary Glowing Red Button */}
                     <button 
-                      onClick={() => handleOpenQuote(currentSlide.primaryCtaText)}
-                      className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#EF4444] via-[#F43F5E] to-[#E11D48] text-white font-bold text-sm shadow-[0_6px_25px_rgba(239,68,68,0.5)] hover:shadow-[0_8px_30px_rgba(239,68,68,0.7)] active:scale-95 transition-all duration-200 flex items-center gap-2 group"
+                      onClick={() => handleOpenQuote(slideText.primaryCta)}
+                      className="px-6 py-3 rounded-xl bg-[#DB2B30] text-white font-bold text-sm shadow-[0_4px_22px_rgba(239,68,68,0.5)] hover:shadow-[0_6px_28px_rgba(239,68,68,0.7)] active:scale-95 transition-all duration-200 flex items-center gap-2 group"
                     >
-                      <span>{currentSlide.primaryCtaText || "Explore Services"}</span>
+                      <span>{slideText.primaryCta}</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </button>
 
                     {/* Secondary Dark Outline Button */}
                     <button 
                       onClick={() => handleNavigate('about')}
-                      className="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-white/10 hover:border-slate-700 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200 flex items-center gap-2 group"
+                      className="px-5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-white/10 hover:border-slate-700 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200 flex items-center gap-2 group"
                     >
-                      <span>{currentSlide.secondaryCtaText || "Discover Infytel"}</span>
+                      <span>{slideText.secondaryCta}</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </button>
                   </div>
@@ -214,59 +277,89 @@ export default function App() {
                   <HeroVisual slide={currentSlide} />
                 </div>
               </div>
+            </div>
 
-              {/* 4 Bottom Interactive Pillar Cards (Tabs) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-20">
-                {pillarTabs.map((tab) => {
+            {/* 3. BOTTOM 4 INTERACTIVE PILLAR CARDS (Horizontal Line to Card Transformation) */}
+            <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full pb-2 sm:pb-3 relative z-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 xl:gap-4">
+                {pillarTabs.map((tab, idx) => {
                   const Icon = tab.icon;
                   const isActive = currentSlide.pillar === tab.slidePillar;
+                  const cardDelay = 750 + idx * 140;
 
                   return (
                     <div
                       key={tab.id}
-                      onClick={() => selectPillar(tab.slidePillar)}
-                      className={`p-5 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between border ${
-                        isActive
-                          ? 'bg-[#0F182E] border-[#EF4444] shadow-[0_0_25px_rgba(239,68,68,0.35)] -translate-y-1'
-                          : 'bg-[#0B132B]/80 hover:bg-[#0E1733] border-white/5 hover:border-white/15'
-                      }`}
+                      style={!heroCardsEntranceDone ? { animationDelay: `${cardDelay}ms` } : undefined}
+                      className={`relative ${!heroCardsEntranceDone ? 'animate-horizontal-line-card' : ''}`}
                     >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className={`p-2.5 rounded-xl ${
-                          isActive 
-                            ? 'bg-[#EF4444] text-white shadow-glow-red-sm' 
-                            : 'bg-slate-800 text-slate-400'
-                        }`}>
-                          <Icon className="w-4 h-4" />
+                      {/* Luminous horizontal laser beam across center of card - only during initial page load */}
+                      {!heroCardsEntranceDone && (
+                        <div 
+                          className={`absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] pointer-events-none z-30 ${
+                            idx === 0 ? 'bg-[#E12C2C] animate-laser-line-h-red' : 'bg-[#00D2FF] animate-laser-line-h'
+                          }`}
+                          style={{ animationDelay: `${cardDelay}ms` }}
+                        />
+                      )}
+
+                      {/* Interactive Card Surface */}
+                      <div
+                        onClick={() => selectPillar(tab.slidePillar)}
+                        className={`p-3.5 sm:p-4 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between border h-full min-h-[125px] sm:min-h-[135px] group ${
+                          isActive
+                            ? 'bg-[#0E172F] border-[#E12C2C] shadow-[0_0_25px_rgba(239,68,68,0.35)] -translate-y-0.5'
+                            : 'bg-[#0A1224]/90 hover:bg-[#0E1733] border-white/5 hover:border-white/15 hover:-translate-y-0.5'
+                        }`}
+                      >
+                        {/* Top: Circular Category Icon */}
+                        <div className={`mb-3 ${!heroCardsEntranceDone ? 'animate-card-content-h' : ''}`} style={!heroCardsEntranceDone ? { animationDelay: `${cardDelay}ms` } : undefined}>
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                            isActive 
+                              ? 'bg-[#E12C2C] text-white shadow-[0_0_12px_#E12C2C]' 
+                              : 'bg-[#15203A] text-slate-300 border border-white/5'
+                          }`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
                         </div>
 
-                        {/* Arrow indicator */}
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
-                          isActive 
-                            ? 'bg-[#EF4444] text-white shadow-sm' 
-                            : 'bg-white/5 text-slate-400 group-hover:text-white'
-                        }`}>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </div>
-                      </div>
+                        {/* Bottom: Text on the left, Arrow Button in Bottom Right Corner */}
+                        <div 
+                          className={`flex items-end justify-between gap-2 mt-auto ${!heroCardsEntranceDone ? 'animate-card-content-h' : ''}`}
+                          style={!heroCardsEntranceDone ? { animationDelay: `${cardDelay}ms` } : undefined}
+                        >
+                          <div>
+                            <h4 className="text-sm lg:text-[15px] font-bold text-white mb-0.5 tracking-tight">
+                              {tab.title}
+                            </h4>
+                            <p className="text-[11px] lg:text-xs text-slate-400 leading-snug">
+                              {tab.descLine1} <br />
+                              {tab.descLine2}
+                            </p>
+                          </div>
 
-                      <div>
-                        <h4 className="text-base font-bold text-white mb-1">
-                          {tab.title}
-                        </h4>
-                        <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-                          {tab.desc}
-                        </p>
+                          {/* Arrow indicator in bottom right corner */}
+                          <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                            isActive 
+                              ? 'bg-[#E12C2C] text-white shadow-[0_0_10px_rgba(225,44,44,0.6)]' 
+                              : 'bg-[#121B30] text-slate-400 border border-white/10 group-hover:text-white group-hover:border-white/20'
+                          }`}>
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
                 })}
               </div>
-            </section>
+            </div>
 
-            {/* TRUSTED BY AFRICA'S LEADING TEAMS (Bank Ticker with Red Arch) */}
+            {/* 4. DOCKED RED CURVED ARCH SHELF WITH BANK TICKER */}
             <BankTicker />
+          </section>
 
+          {/* REST OF HOMEPAGE CONTENT (Visible when scrolling down) */}
+          <main>
             {/* EMPOWERING BUSINESS / ABOUT SECTION */}
             <EmpoweringBusiness 
               data={homeData?.empoweringBusiness} 
@@ -302,23 +395,34 @@ export default function App() {
               data={homeData?.cta} 
               onOpenQuote={handleOpenQuote}
             />
-          </div>
-        ) : (
-          /* ABOUT PAGE */
-          <AboutPage 
-            data={aboutData} 
-            onOpenQuote={handleOpenQuote} 
+          </main>
+        </>
+      ) : (
+        <>
+          <Navbar 
+            currentRoute={currentRoute}
+            onNavigate={handleNavigate}
+            onOpenQuote={handleOpenQuote}
+            isLiveApi={isLiveApi}
+            isDark={isDark}
+            onToggleTheme={() => setIsDark(!isDark)}
           />
-        )}
-      </main>
+          <main>
+            <AboutPage 
+              data={aboutData} 
+              onOpenQuote={handleOpenQuote} 
+            />
+          </main>
+        </>
+      )}
 
-      {/* 3. FOOTER */}
+      {/* FOOTER */}
       <Footer 
         onNavigate={handleNavigate} 
         onOpenQuote={handleOpenQuote} 
       />
 
-      {/* 4. CONTACT / GET A QUOTE MODAL */}
+      {/* CONTACT / GET A QUOTE MODAL */}
       <ContactModal
         isOpen={quoteModalOpen}
         onClose={() => setQuoteModalOpen(false)}

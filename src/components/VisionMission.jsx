@@ -18,7 +18,7 @@ export default function VisionMission({ data }) {
 
       {/* Section Tag */}
       <div className="flex items-center gap-2 mb-6">
-        <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+        <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
         <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest font-mono">
           VISION & MISSION
         </span>
@@ -55,7 +55,7 @@ export default function VisionMission({ data }) {
           {/* Subtle background glow */}
           <div className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-red-500/10 blur-2xl pointer-events-none"></div>
 
-          <div className="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-400/30 flex items-center justify-center text-[#EF4444] mb-6 shadow-glow-red-sm">
+          <div className="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-400/30 flex items-center justify-center text-[#E12C2C] mb-6 shadow-glow-red-sm">
             <Flag className="w-7 h-7" />
           </div>
 

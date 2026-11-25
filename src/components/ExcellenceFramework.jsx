@@ -27,7 +27,7 @@ export default function ExcellenceFramework({ data, onOpenQuote }) {
         {/* Left Column: Heading & Framework Intro */}
         <div className="lg:col-span-5 sticky top-28">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
             DELIVERY MODEL
           </div>
 
@@ -41,7 +41,7 @@ export default function ExcellenceFramework({ data, onOpenQuote }) {
 
           <button 
             onClick={() => onOpenQuote && onOpenQuote('Framework Discovery Call')}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#EF4444] text-white hover:bg-rose-600 text-sm font-bold transition-all shadow-[0_6px_20px_rgba(239,68,68,0.35)] group"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#E12C2C] text-white hover:bg-rose-600 text-sm font-bold transition-all shadow-[0_6px_20px_rgba(239,68,68,0.35)] group"
           >
             <span>Schedule Discovery Audit</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -100,7 +100,7 @@ export default function ExcellenceFramework({ data, onOpenQuote }) {
                             key={dIdx}
                             className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-700 shadow-sm"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]"></span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#E12C2C]"></span>
                             {d}
                           </span>
                         ))}

@@ -29,7 +29,7 @@ export default function PracticesSection({ data, onOpenQuote }) {
       
       {/* Section Header */}
       <div className="max-w-3xl mb-16">
-        <span className="text-xs font-bold text-[#EF4444] uppercase tracking-wider font-mono block mb-3">
+        <span className="text-xs font-bold text-[#E12C2C] uppercase tracking-wider font-mono block mb-3">
           {data?.badge || "# OUR PRACTICES & SOLUTIONS"}
         </span>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
@@ -135,13 +135,13 @@ export default function PracticesSection({ data, onOpenQuote }) {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                     <h5 className="text-base font-bold text-white flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
                       {sol.name}
                     </h5>
                     {sol.oemPartners && sol.oemPartners.length > 0 && (
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {sol.oemPartners.map((oem, oIdx) => (
-                          <span key={oIdx} className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30">
+                          <span key={oIdx} className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#E12C2C]/15 text-[#E12C2C] border border-[#E12C2C]/30">
                             OEM: {oem}
                           </span>
                         ))}
@@ -202,7 +202,7 @@ export default function PracticesSection({ data, onOpenQuote }) {
               </span>
               <button 
                 onClick={() => onOpenQuote && onOpenQuote(`Consultation for ${activePractice.name}`)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#EF4444] to-[#F43F5E] text-white text-xs font-bold hover:shadow-glow-red-sm transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E12C2C] to-[#F43F5E] text-white text-xs font-bold hover:shadow-glow-red-sm transition-all"
               >
                 <span>Request Practice Scope</span>
                 <ArrowRight className="w-3.5 h-3.5" />

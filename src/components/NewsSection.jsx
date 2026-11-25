@@ -26,7 +26,7 @@ export default function NewsSection({ data }) {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider mb-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#E12C2C]"></span>
             INSIGHTS & UPDATES
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight">
@@ -36,7 +36,7 @@ export default function NewsSection({ data }) {
 
         <button 
           onClick={() => setActiveArticle(featured)}
-          className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#EF4444] transition-colors self-start md:self-end"
+          className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#E12C2C] transition-colors self-start md:self-end"
         >
           <span>Explore all briefings</span>
           <ArrowRight className="w-4 h-4" />
@@ -81,7 +81,7 @@ export default function NewsSection({ data }) {
             {/* Content Bottom */}
             <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-950 group-hover:text-[#EF4444] transition-colors mb-3 leading-snug">
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-950 group-hover:text-[#E12C2C] transition-colors mb-3 leading-snug">
                   {featured.title}
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed mb-6">
@@ -119,7 +119,7 @@ export default function NewsSection({ data }) {
                   </span>
                 </div>
 
-                <h4 className="text-base font-bold text-slate-900 group-hover:text-[#EF4444] transition-colors leading-snug mb-2">
+                <h4 className="text-base font-bold text-slate-900 group-hover:text-[#E12C2C] transition-colors leading-snug mb-2">
                   {item.title}
                 </h4>
 
@@ -130,7 +130,7 @@ export default function NewsSection({ data }) {
 
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-600 font-medium">{item.authorName}</span>
-                <span className="text-[#EF4444] font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                <span className="text-[#E12C2C] font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
                   Read article <ArrowRight className="w-3 h-3" />
                 </span>
               </div>
@@ -176,7 +176,7 @@ export default function NewsSection({ data }) {
 
             <button
               onClick={() => setActiveArticle(null)}
-              className="w-full py-3 rounded-xl bg-slate-900 hover:bg-[#EF4444] text-white font-bold text-sm transition-colors shadow-md"
+              className="w-full py-3 rounded-xl bg-slate-900 hover:bg-[#E12C2C] text-white font-bold text-sm transition-colors shadow-md"
             >
               Close Article
             </button>
