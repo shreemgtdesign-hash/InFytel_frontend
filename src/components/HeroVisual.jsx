@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import introImg from '../assets/introimg.png';
 import aiBotImg from '../assets/ai-bot-img.png';
 import cardImg from '../assets/card-img.png';
-import itSecurityImg from '../assets/it-security-img.png';
+import itSecurityImg from '../assets/it-Security-img.png';
 export default function HeroVisual({ slide }) {
   const visualType = slide?.visualType || '3d-orbit-sphere';
   const metrics = slide?.metrics || {};
