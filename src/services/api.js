@@ -1312,7 +1312,14 @@ export async function getHomeData() {
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     const json = await res.json();
     if (json && json.success && json.data) {
-      return { data: json.data, isLive: true };
+      const data = { ...json.data };
+      if (Array.isArray(data.heroSlides)) {
+        const hasWhy = data.heroSlides.some(s => s.pillar === 'WHY_INFYTEL');
+        if (!hasWhy) {
+          data.heroSlides = [HOME_DEFAULT_DATA.heroSlides[0], ...data.heroSlides];
+        }
+      }
+      return { data, isLive: true };
     }
   } catch (err) {
     console.info('[Infytel API] Using cached Home data:', err.message);

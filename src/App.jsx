@@ -18,7 +18,7 @@ import AboutPage from './components/AboutPage.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
 
-import { getHomeData, getAboutData, getSuccessStories } from './services/api.js';
+import { getHomeData, getAboutData, getSuccessStories, HOME_DEFAULT_DATA } from './services/api.js';
 
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState('home'); // 'home' | 'about'
@@ -53,8 +53,18 @@ export default function App() {
         getAboutData(),
         getSuccessStories()
       ]);
+
+      const rawSlides = (hRes.data?.heroSlides && hRes.data.heroSlides.length > 0)
+        ? hRes.data.heroSlides
+        : HOME_DEFAULT_DATA.heroSlides;
+      const hasWhyInfytel = rawSlides.some(s => s.pillar === 'WHY_INFYTEL');
+      const normalizedHeroSlides = hasWhyInfytel
+        ? rawSlides
+        : [HOME_DEFAULT_DATA.heroSlides[0], ...rawSlides];
+
       const mergedHomeData = {
         ...hRes.data,
+        heroSlides: normalizedHeroSlides,
         realOutcomes: sRes?.data || hRes.data?.realOutcomes
       };
       setHomeData(mergedHomeData);
@@ -63,16 +73,16 @@ export default function App() {
       setLoading(false);
 
       // Default to Why Infytel (displayOrder 1 or WHY_INFYTEL)
-      if (hRes.data?.heroSlides) {
-        const whyIdx = hRes.data.heroSlides.findIndex(s => s.pillar === 'WHY_INFYTEL');
-        if (whyIdx !== -1) setActiveSlideIdx(whyIdx);
-        else setActiveSlideIdx(0);
-      }
+      const whyIdx = normalizedHeroSlides.findIndex(s => s.pillar === 'WHY_INFYTEL');
+      if (whyIdx !== -1) setActiveSlideIdx(whyIdx);
+      else setActiveSlideIdx(0);
     }
     loadAllData();
   }, []);
 
-  const heroSlides = homeData?.heroSlides || [];
+  const heroSlides = (homeData?.heroSlides && homeData.heroSlides.length > 0)
+    ? homeData.heroSlides
+    : HOME_DEFAULT_DATA.heroSlides;
   const currentSlide = heroSlides[activeSlideIdx] || heroSlides[0] || {};
 
   // Exact slide content dictionary matching the Figma design specifications line-by-line
@@ -167,7 +177,11 @@ export default function App() {
   const selectPillar = (pillarName) => {
     setHeroCardsEntranceDone(true);
     const idx = heroSlides.findIndex(s => s.pillar === pillarName);
-    if (idx !== -1) setActiveSlideIdx(idx);
+    if (idx !== -1) {
+      setActiveSlideIdx(idx);
+    } else if (pillarName === 'WHY_INFYTEL') {
+      setActiveSlideIdx(0);
+    }
   };
 
   // Navigation handler
