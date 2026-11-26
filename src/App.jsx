@@ -374,14 +374,17 @@ export default function App() {
 
           {/* REST OF HOMEPAGE CONTENT (Visible when scrolling down) */}
           <main>
+            {/* VISION & MISSION */}
+            <VisionMission data={homeData?.visionMission} />
+
+            {/* REAL OUTCOMES / SUCCESS STORIES */}
+            <RealOutcomes data={homeData?.realOutcomes} />
+
             {/* EMPOWERING BUSINESS / ABOUT SECTION */}
             <EmpoweringBusiness 
               data={homeData?.empoweringBusiness} 
               onNavigate={handleNavigate}
             />
-
-            {/* VISION & MISSION */}
-            <VisionMission data={homeData?.visionMission} />
 
             {/* PRACTICES & SOLUTIONS (7 Practices, 31 Solutions) */}
             <PracticesSection 
@@ -394,9 +397,6 @@ export default function App() {
               data={homeData?.excellenceFramework} 
               onOpenQuote={handleOpenQuote}
             />
-
-            {/* REAL OUTCOMES (Case Studies Metrics) */}
-            <RealOutcomes data={homeData?.realOutcomes} />
 
             {/* TESTIMONIALS */}
             <Testimonials data={homeData?.testimonialsSection} />

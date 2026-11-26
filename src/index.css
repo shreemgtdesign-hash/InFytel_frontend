@@ -381,3 +381,288 @@
 .animate-card-content-h {
   animation: cardContentFadeInH 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* =========================================================
+   Vision & Mission Custom Animations (Hands Touch + Bulb)
+   ========================================================= */
+
+@keyframes humanHandReach {
+  0%, 100% {
+    transform: translate3d(-3.2%, 0.6%, 0);
+  }
+  16% {
+    transform: translate3d(-2.6%, 0.4%, 0);
+  }
+  40%, 56% {
+    transform: translate3d(1.75%, -0.2%, 0);
+  }
+  80% {
+    transform: translate3d(-3.2%, 0.6%, 0);
+  }
+}
+
+@keyframes aiHandReach {
+  0%, 100% {
+    transform: translate3d(3.2%, 0.6%, 0);
+    filter: drop-shadow(0 0 12px rgba(14, 165, 233, 0.35)) brightness(1);
+  }
+  16% {
+    transform: translate3d(2.6%, 0.4%, 0);
+    filter: drop-shadow(0 0 14px rgba(14, 165, 233, 0.45)) brightness(1.04);
+  }
+  40%, 56% {
+    transform: translate3d(-1.65%, -0.2%, 0);
+    filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.88)) brightness(1.24) saturate(1.22);
+  }
+  80% {
+    transform: translate3d(3.2%, 0.6%, 0);
+    filter: drop-shadow(0 0 12px rgba(14, 165, 233, 0.35)) brightness(1);
+  }
+}
+
+@keyframes synapseSparkCore {
+  0%, 36%, 64%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  41% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+  48% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  56% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+@keyframes synapseShockwave {
+  0%, 37% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.12);
+  }
+  41% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+  62% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.85);
+  }
+}
+
+@keyframes synapseShockwaveSecondary {
+  0%, 41% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  46% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+  68% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.35);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.35);
+  }
+}
+
+@keyframes synapseStarFlare {
+  0%, 37%, 63%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(0.15) scaleY(0.4);
+  }
+  42% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(1.3) scaleY(1);
+  }
+  55% {
+    opacity: 0.75;
+    transform: translate(-50%, -50%) scaleX(0.95) scaleY(0.85);
+  }
+}
+
+@keyframes missionGridGlow {
+  0%, 35%, 70%, 100% {
+    opacity: 0.18;
+  }
+  44%, 56% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes bulbBrightenSurge {
+  0%, 100% {
+    transform: translateY(2px) scale(0.99);
+    filter: brightness(0.88) contrast(1.02) saturate(0.95) drop-shadow(0 0 14px rgba(245, 158, 11, 0.25));
+  }
+  22% {
+    transform: translateY(0px) scale(1);
+    filter: brightness(1.04) contrast(1.04) saturate(1.06) drop-shadow(0 0 22px rgba(245, 158, 11, 0.42));
+  }
+  26% {
+    filter: brightness(0.95) contrast(1.03) drop-shadow(0 0 16px rgba(245, 158, 11, 0.3));
+  }
+  31% {
+    filter: brightness(1.16) contrast(1.06) saturate(1.12) drop-shadow(0 0 28px rgba(251, 146, 60, 0.55));
+  }
+  48%, 58% {
+    transform: translateY(-4px) scale(1.015);
+    filter: brightness(1.42) contrast(1.09) saturate(1.24) drop-shadow(0 0 38px rgba(251, 146, 60, 0.78)) drop-shadow(0 0 72px rgba(56, 189, 248, 0.25));
+  }
+  78% {
+    transform: translateY(-1px) scale(1.004);
+    filter: brightness(1.08) contrast(1.04) saturate(1.08) drop-shadow(0 0 24px rgba(245, 158, 11, 0.45));
+  }
+}
+
+@keyframes bulbFilamentAura {
+  0%, 100% {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+  30% {
+    opacity: 0.58;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  48%, 58% {
+    opacity: 0.96;
+    transform: translate(-50%, -50%) scale(1.32);
+  }
+  80% {
+    opacity: 0.48;
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+}
+
+@keyframes bulbRaySpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bulbRayPulse {
+  0%, 100% {
+    opacity: 0.14;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  48%, 58% {
+    opacity: 0.62;
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+}
+
+@keyframes bulbMoteFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.6);
+  }
+  25% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-48px) scale(1.1);
+  }
+}
+
+@keyframes visionEyePulse {
+  0%, 100% {
+    opacity: 0.68;
+    filter: brightness(0.95);
+  }
+  50% {
+    opacity: 0.92;
+    filter: brightness(1.22);
+  }
+}
+
+.animate-human-hand-touch {
+  animation: humanHandReach 5.6s cubic-bezier(0.42, 0, 0.22, 1) infinite;
+  will-change: transform;
+}
+
+.animate-ai-hand-touch {
+  animation: aiHandReach 5.6s cubic-bezier(0.42, 0, 0.22, 1) infinite;
+  will-change: transform, filter;
+}
+
+.animate-synapse-core {
+  animation: synapseSparkCore 5.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.animate-synapse-wave-1 {
+  animation: synapseShockwave 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.animate-synapse-wave-2 {
+  animation: synapseShockwaveSecondary 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.animate-synapse-star {
+  animation: synapseStarFlare 5.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.animate-mission-grid {
+  animation: missionGridGlow 5.6s ease-in-out infinite;
+}
+
+.animate-bulb-brighten {
+  animation: bulbBrightenSurge 4.8s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+.animate-bulb-aura {
+  animation: bulbFilamentAura 4.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-bulb-rays-spin {
+  animation: bulbRaySpin 26s linear infinite;
+}
+
+.animate-bulb-rays-pulse {
+  animation: bulbRayPulse 4.8s ease-in-out infinite;
+}
+
+.animate-bulb-mote {
+  animation: bulbMoteFloat 4s ease-in-out infinite;
+}
+
+.animate-vision-eye-bg {
+  animation: visionEyePulse 4.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-human-hand-touch,
+  .animate-ai-hand-touch,
+  .animate-synapse-core,
+  .animate-synapse-wave-1,
+  .animate-synapse-wave-2,
+  .animate-synapse-star,
+  .animate-mission-grid,
+  .animate-bulb-brighten,
+  .animate-bulb-aura,
+  .animate-bulb-rays-spin,
+  .animate-bulb-rays-pulse,
+  .animate-bulb-mote,
+  .animate-vision-eye-bg {
+    animation: none !important;
+  }
+}
