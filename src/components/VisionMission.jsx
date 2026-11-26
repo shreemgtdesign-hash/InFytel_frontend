@@ -66,7 +66,7 @@ export default function VisionMission() {
          ========================================================= */}
       <div
         ref={headerRef}
-        className="relative bg-gradient-to-b from-[#040B18] via-[#051022] to-[#08192C] pt-20 pb-14 sm:pt-24 sm:pb-16 overflow-hidden"
+        className="relative bg-[#010306] pt-20 pb-14 sm:pt-24 sm:pb-16 overflow-hidden"
       >
         {/* Top laser sweep border when entering from Hero */}
         <div
@@ -79,14 +79,23 @@ export default function VisionMission() {
           }}
         />
 
-        {/* Subtle bottom atmospheric blue-cyan horizon glow */}
+        {/* Particular Area 1: Top-left deep teal edge glow (#01121c -> #010a11) */}
         <div
-          className={`absolute inset-x-0 bottom-0 h-28 pointer-events-none transition-opacity duration-1000 ${
+          className="absolute inset-y-0 left-0 w-[34%] pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 90% 78% at 0% 24%, rgba(1, 30, 44, 0.88) 0%, rgba(1, 18, 28, 0.45) 45%, transparent 78%)',
+          }}
+        />
+
+        {/* Particular Area 2: Bottom-right localized deep teal horizon glow (#091f2d -> #061721) */}
+        <div
+          className={`absolute inset-y-0 right-0 w-[60%] pointer-events-none transition-opacity duration-1000 ${
             headerInView ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
             background:
-              'radial-gradient(65% 100% at 50% 100%, rgba(14, 165, 233, 0.14) 0%, transparent 100%)',
+              'radial-gradient(ellipse 68% 82% at 68% 100%, rgba(9, 38, 56, 0.92) 0%, rgba(6, 23, 33, 0.68) 44%, rgba(2, 10, 16, 0.25) 74%, transparent 92%)',
           }}
         />
 
@@ -121,7 +130,7 @@ export default function VisionMission() {
          ========================================================= */}
       <div
         ref={missionRef}
-        className="relative bg-[#020611] border-y border-white/[0.06] overflow-hidden"
+        className="relative bg-[#020611]  overflow-hidden"
       >
         {/* Left-edge Crimson Wedge Flare matching updated design */}
         <div
