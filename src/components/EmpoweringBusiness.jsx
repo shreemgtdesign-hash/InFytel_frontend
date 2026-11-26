@@ -17,7 +17,7 @@ export default function EmpoweringBusiness({ data, onNavigate }) {
       numericValue: "15",
       suffix: "+ YEARS",
       label: "Industry Experience",
-      description: "Delivering mission-critical enterprise systems across Africa",
+      description: "Delivering mission-critical enterprise systems globally",
       isHighlight: false
     },
     {

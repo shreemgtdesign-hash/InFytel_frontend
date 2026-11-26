@@ -119,8 +119,8 @@ export default function VisionMission() {
             }`}
           >
             Business <span className="text-[#14A8EB]">growth</span> is our core motivation. We seek out <br className="hidden lg:inline" />
-            the best technology in the world and make it work for <br className="hidden lg:inline" />
-            Africa&apos;s most forward-thinking companies.
+            the best technology in the world and make it work for  <br className="hidden lg:inline" />
+             the globe&apos;s most forward-thinking companies.
           </h2>
         </div>
       </div>
