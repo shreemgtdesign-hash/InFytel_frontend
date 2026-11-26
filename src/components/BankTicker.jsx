@@ -1,19 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function BankTicker() {
-  const banks = [
-    { name: 'Access Bank', symbol: 'ACCESS' },
-    { name: 'Zenith Bank', symbol: 'ZENITH' },
-    { name: 'GTBank', symbol: 'GTCO' },
-    { name: 'UBA', symbol: 'UBA' },
-    { name: 'FCMB', symbol: 'FCMB' },
-    { name: 'Standard Chartered', symbol: 'SCB' },
-    { name: 'Stanbic IBTC', symbol: 'STANBIC' },
-    { name: 'Wema Bank', symbol: 'ALAT' },
-  ];
+const DEFAULT_PARTNERS = [
+  {
+    id: '61301f3f-1051-4165-9d94-a78da323e224',
+    name: 'Zenith Bank',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/zenith-bank.jpg',
+    displayOrder: 1,
+    isActive: true,
+  },
+  {
+    id: '8154e6a0-5761-403d-b591-48650999b1dd',
+    name: 'FCMB',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/fcmb.jpg',
+    displayOrder: 2,
+    isActive: true,
+  },
+  {
+    id: '2a92c228-80ec-43f6-a2df-95b4037702ec',
+    name: 'GTBank',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/gtbank.jpg',
+    displayOrder: 3,
+    isActive: true,
+  },
+  {
+    id: '5559a46a-6d8b-438b-af10-299956904a92',
+    name: 'Access Bank',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/access-bank.jpg',
+    displayOrder: 4,
+    isActive: true,
+  },
+  {
+    id: '6da92c36-e5a6-471a-8ba7-1eeaf08c18e9',
+    name: 'Wema Bank',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/wema-bank.jpg',
+    displayOrder: 5,
+    isActive: true,
+  },
+  {
+    id: '00990376-9745-4c58-8d2b-4d3f22c24d8e',
+    name: 'UBA',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/uba.jpg',
+    displayOrder: 6,
+    isActive: true,
+  },
+  {
+    id: '5143a447-9ec8-4246-a99f-812fc5510609',
+    name: 'Stanbic IBTC',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/stanbic-ibtc.jpg',
+    displayOrder: 7,
+    isActive: true,
+  },
+  {
+    id: '943ef55d-6b28-4013-9dee-b651fca4472b',
+    name: 'Standard Chartered',
+    logoUrl: 'https://zbiimbluzudgfnfxwvkd.supabase.co/storage/v1/object/public/infytel-assets/partners/standard-chartered.jpg',
+    displayOrder: 8,
+    isActive: true,
+  },
+];
+
+function TickerBankItem({ partner }) {
+  const [imgFailed, setImgFailed] = useState(false);
+
+  return (
+    <div className="flex items-center gap-2 sm:gap-2.5 px-2 py-1 rounded-lg group transition-all duration-200 cursor-default">
+      {partner.logoUrl && !imgFailed ? (
+        <img
+          src={partner.logoUrl}
+          alt={`${partner.name} logo`}
+          onError={() => setImgFailed(true)}
+          loading="lazy"
+          decoding="async"
+          className="w-4 h-4 sm:w-5 sm:h-5 rounded-[3px] sm:rounded-[4px] object-contain bg-white p-[1px] shrink-0 ring-1 ring-white/15 group-hover:ring-white/40 transition-all"
+        />
+      ) : (
+        <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-slate-700 group-hover:bg-[#E12C2C] group-hover:shadow-[0_0_8px_#E12C2C] transition-colors shrink-0" />
+      )}
+      <span className="text-xs sm:text-sm font-bold text-slate-400 group-hover:text-white transition-colors tracking-tight whitespace-nowrap">
+        {partner.name}
+      </span>
+    </div>
+  );
+}
+
+export default function BankTicker({ partners }) {
+  const activeBanks = (
+    Array.isArray(partners) && partners.length > 0
+      ? partners.filter((p) => p.isActive !== false)
+      : DEFAULT_PARTNERS
+  )
+    .slice()
+    .sort((a, b) => (a.displayOrder ?? 99) - (b.displayOrder ?? 99));
 
   // Repeat the list for seamless continuous infinite scroll
-  const marqueeList = [...banks, ...banks, ...banks];
+  const marqueeList = [...activeBanks, ...activeBanks, ...activeBanks];
 
   return (
     <div 
@@ -87,15 +167,7 @@ export default function BankTicker() {
         {/* Marquee track */}
         <div className="flex items-center gap-8 sm:gap-14 w-max animate-marquee hover:[animation-play-state:paused]">
           {marqueeList.map((b, idx) => (
-            <div 
-              key={idx}
-              className="flex items-center gap-2 sm:gap-2.5 px-2 py-1 rounded-lg group transition-all duration-200 cursor-default"
-            >
-              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-slate-700 group-hover:bg-[#E12C2C] group-hover:shadow-[0_0_8px_#E12C2C] transition-colors"></div>
-              <span className="text-xs sm:text-sm font-bold text-slate-400 group-hover:text-white transition-colors tracking-tight whitespace-nowrap">
-                {b.name}
-              </span>
-            </div>
+            <TickerBankItem key={`${b.id || b.name}-${idx}`} partner={b} />
           ))}
         </div>
       </div>

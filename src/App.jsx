@@ -369,7 +369,7 @@ export default function App() {
             </div>
 
             {/* 4. DOCKED RED CURVED ARCH SHELF WITH BANK TICKER */}
-            <BankTicker />
+            <BankTicker partners={homeData?.partners} />
           </section>
 
           {/* REST OF HOMEPAGE CONTENT (Visible when scrolling down) */}
