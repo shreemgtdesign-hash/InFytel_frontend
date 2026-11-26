@@ -153,8 +153,8 @@ export default function BankTicker({ partners }) {
         </div>
 
         {/* Section Subtitle */}
-        <p className="text-center text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-400 mt-1 mb-1.5">
-          TRUSTED BY GLOBAL LEADING TEAMS
+        <p className="text-center text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-400 mt-1 mb-2">
+          TRUSTED BY GLOBAL LEADING PARTNERS
         </p>
       </div>
 
