@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, Send, Phone, Mail, MapPin } from 'lucide-react';
+import { X, CheckCircle2, Send, AlertCircle } from 'lucide-react';
+import { submitContactInquiry } from '../services/api.js';
 
 export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a quote' }) {
   if (!isOpen) return null;
@@ -15,14 +16,27 @@ export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a 
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    setErrorMsg('');
+    try {
+      await submitContactInquiry({
+        fullName: formData.name.trim(),
+        workEmail: formData.email.trim(),
+        phone: formData.phone.trim(),
+        companyName: formData.company.trim(),
+        solutionOfInterest: formData.practice,
+        message: formData.message.trim(),
+      });
       setSubmitted(true);
-    }, 700);
+    } catch (err) {
+      setErrorMsg(err.message || 'Unable to send your request. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -70,6 +84,13 @@ export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a 
             <p className="text-xs sm:text-sm text-slate-400 mb-6">
               Connect directly with our Victoria Island enterprise engineering teams.
             </p>
+
+            {errorMsg && (
+              <div className="mb-4 rounded-xl bg-rose-500/15 border border-rose-500/30 p-3 flex items-center gap-2 text-rose-300 text-xs">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{errorMsg}</span>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -120,18 +141,19 @@ export default function ContactModal({ isOpen, onClose, initialSubject = 'Get a 
                     <option value="AI & Automation">AI & Automation</option>
                     <option value="Financial Technology">Financial Technology</option>
                     <option value="Cloud & Data">Cloud & Data</option>
-                    <option value="Cybersecurity">Cybersecurity & Zero Trust</option>
-                    <option value="Enterprise Collaboration">Enterprise Collaboration</option>
+                    <option value="Cybersecurity">Cybersecurity</option>
+                    <option value="Enterprise & Collaboration">Enterprise & Collaboration</option>
                     <option value="Infrastructure & Hardware">Infrastructure & Hardware</option>
-                    <option value="Digital Engineering">Digital Engineering</option>
+                    <option value="Digital & Engineering">Digital & Engineering</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Project Scope & Requirements</label>
+                <label className="block text-xs font-semibold text-slate-300 mb-1">Project Scope & Requirements *</label>
                 <textarea
                   rows="3"
+                  required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell us about your organization's goals, timelines and systems..."

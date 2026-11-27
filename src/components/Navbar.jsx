@@ -126,10 +126,15 @@ export default function Navbar({
 
           {/* Career */}
           <button 
-            onClick={() => onOpenQuote && onOpenQuote('Career Inquiry')}
-            className="text-slate-300 hover:text-white py-1 transition-colors"
+            onClick={() => handleNav('career')}
+            className={`relative py-1 transition-colors ${
+              currentRoute === 'career' ? 'text-white font-semibold' : 'text-slate-300 hover:text-white'
+            }`}
           >
             Career
+            {currentRoute === 'career' && (
+              <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-[#E12C2C] rounded-full shadow-[0_0_8px_#E12C2C]"></span>
+            )}
           </button>
 
           {/* Blogs */}
@@ -142,10 +147,15 @@ export default function Navbar({
 
           {/* Contact Us */}
           <button 
-            onClick={() => onOpenQuote ? onOpenQuote('Contact Inquiry') : handleNav('home', 'contact-section')}
-            className="text-slate-300 hover:text-white py-1 transition-colors"
+            onClick={() => handleNav('contact')}
+            className={`relative py-1 transition-colors ${
+              currentRoute === 'contact' ? 'text-white font-semibold' : 'text-slate-300 hover:text-white'
+            }`}
           >
             Contact Us
+            {currentRoute === 'contact' && (
+              <span className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-[#E12C2C] rounded-full shadow-[0_0_8px_#E12C2C]"></span>
+            )}
           </button>
         </nav>
 
@@ -207,14 +217,20 @@ export default function Navbar({
             Services & Practices
           </button>
           <button 
+            onClick={() => handleNav('career')} 
+            className={`block w-full text-left py-2 font-medium text-base ${currentRoute === 'career' ? 'text-[#E12C2C]' : 'text-slate-200'}`}
+          >
+            Career
+          </button>
+          <button 
             onClick={() => handleNav('home', 'news-section')} 
             className="block w-full text-left py-2 font-medium text-base text-slate-200"
           >
             Latest News & Blogs
           </button>
           <button 
-            onClick={() => { setMobileMenuOpen(false); onOpenQuote('Mobile Contact'); }} 
-            className="block w-full text-left py-2 font-medium text-base text-slate-200"
+            onClick={() => handleNav('contact')} 
+            className={`block w-full text-left py-2 font-medium text-base ${currentRoute === 'contact' ? 'text-[#E12C2C]' : 'text-slate-200'}`}
           >
             Contact Us
           </button>

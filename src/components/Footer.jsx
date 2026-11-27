@@ -82,12 +82,12 @@ export default function Footer({ onNavigate, onOpenQuote }) {
                 </button>
               </li>
               <li>
-                <button onClick={() => onOpenQuote && onOpenQuote('Career Inquiry')} className="hover:text-white transition-colors">
+                <button onClick={() => onNavigate && onNavigate('career')} className="hover:text-white transition-colors">
                   Careers at Infytel
                 </button>
               </li>
               <li>
-                <button onClick={() => onOpenQuote && onOpenQuote('General Contact')} className="hover:text-white transition-colors">
+                <button onClick={() => onNavigate && onNavigate('contact')} className="hover:text-white transition-colors">
                   Contact Us
                 </button>
               </li>

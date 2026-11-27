@@ -649,6 +649,37 @@
   animation: visionEyePulse 4.8s ease-in-out infinite;
 }
 
+@keyframes careerPortalFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    filter: brightness(1) drop-shadow(0 0 12px rgba(56, 189, 248, 0.2));
+  }
+  50% {
+    transform: translateY(-8px) scale(1.015);
+    filter: brightness(1.14) drop-shadow(0 0 26px rgba(56, 189, 248, 0.48));
+  }
+}
+
+@keyframes careerOrbitPulse {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+.animate-career-portal-float {
+  animation: careerPortalFloat 5.2s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+.animate-career-orbit-pulse {
+  animation: careerOrbitPulse 4.2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-human-hand-touch,
   .animate-ai-hand-touch,
@@ -662,7 +693,9 @@
   .animate-bulb-rays-spin,
   .animate-bulb-rays-pulse,
   .animate-bulb-mote,
-  .animate-vision-eye-bg {
+  .animate-vision-eye-bg,
+  .animate-career-portal-float,
+  .animate-career-orbit-pulse {
     animation: none !important;
   }
 }

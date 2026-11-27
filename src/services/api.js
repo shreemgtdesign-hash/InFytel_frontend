@@ -1341,6 +1341,421 @@ export async function getSuccessStories() {
   return { data: HOME_DEFAULT_DATA.realOutcomes, isLive: false };
 }
 
+export const CONTACT_DEFAULT_DATA = {
+  "hero": {
+    "badge": "CONTACT US",
+    "headline": "Tell us what you need. We will take it from there.",
+    "subtitle": "A solutions consultant will review your message and reply with next steps."
+  },
+  "contactInfo": {
+    "visitUs": {
+      "title": "Visit us",
+      "address": "Plot 1661, Oyin Jolayemi Street, Victoria Island, Lagos, Nigeria"
+    },
+    "email": {
+      "title": "Email",
+      "emails": [
+        "hello@infytel.ng",
+        "sales@infytel.net",
+        "support@infytel.net"
+      ]
+    },
+    "call": {
+      "title": "Call",
+      "phones": [
+        "09168832163",
+        "09168832164",
+        "08141870187"
+      ]
+    },
+    "officeHours": {
+      "title": "Office hours",
+      "schedule": "Mon–Fri · 8:00 – 17:00 WAT",
+      "supportNote": "Support available 24/7"
+    },
+    "whatsapp": {
+      "label": "Chat with us on WhatsApp",
+      "subtext": "Need help?",
+      "number": "2348144033103"
+    }
+  },
+  "form": {
+    "headline": "Send us a message",
+    "subtitle": "Fields marked optional can be left blank.",
+    "submitButtonText": "Send message",
+    "fields": [
+      {
+        "name": "fullName",
+        "type": "text",
+        "label": "Full name",
+        "required": true,
+        "placeholder": "Enter your full name"
+      },
+      {
+        "name": "workEmail",
+        "type": "email",
+        "label": "Work email",
+        "required": true,
+        "placeholder": "xyz@gmail.com"
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Phone",
+        "required": false,
+        "placeholder": "Enter your 10 digit mobile number"
+      },
+      {
+        "name": "companyName",
+        "type": "text",
+        "label": "Company name",
+        "required": false,
+        "placeholder": "Enter your company name"
+      },
+      {
+        "name": "solutionOfInterest",
+        "type": "select",
+        "label": "Solution of interest",
+        "required": false,
+        "placeholder": "Select a solution..."
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "How can we help?",
+        "required": true,
+        "placeholder": ""
+      }
+    ],
+    "solutionsOfInterest": [
+      {
+        "id": "d268bdd4-2efa-4881-8d71-30679c6d6bf4",
+        "code": "01",
+        "name": "AI & Automation",
+        "slug": "ai-automation"
+      },
+      {
+        "id": "d11f0f94-6892-4858-a767-b15332cf3427",
+        "code": "02",
+        "name": "Financial Technology",
+        "slug": "financial-technology"
+      },
+      {
+        "id": "8fc1e86c-daee-41a7-8fba-19849c19553c",
+        "code": "03",
+        "name": "Cloud & Data",
+        "slug": "cloud-data"
+      },
+      {
+        "id": "5e76e1a5-b4b8-45b5-a5c6-7d8a5dda13d8",
+        "code": "04",
+        "name": "Cybersecurity",
+        "slug": "cybersecurity"
+      },
+      {
+        "id": "1e0828f6-d14c-47f3-82c0-3f0112971b90",
+        "code": "05",
+        "name": "Enterprise & Collaboration",
+        "slug": "enterprise-collaboration"
+      },
+      {
+        "id": "6037aa4d-f20d-4c12-bbab-c72d99404520",
+        "code": "06",
+        "name": "Infrastructure & Hardware",
+        "slug": "infrastructure-hardware"
+      },
+      {
+        "id": "5947dece-3331-4bf6-8fe3-8b1f58692ae3",
+        "code": "07",
+        "name": "Digital & Engineering",
+        "slug": "digital-engineering"
+      }
+    ]
+  },
+  "mapLocation": {
+    "title": "Oyin Jolayemi Street",
+    "address": "Oyin Jolayemi Street, Victoria Island, Lagos 106104, Nigeria",
+    "googleMapsUrl": "https://maps.google.com/?q=Oyin+Jolayemi+Street,+Victoria+Island,+Lagos+106104,+Nigeria",
+    "embedUrl": "https://www.google.com/maps?q=Oyin+Jolayemi+Street,+Victoria+Island,+Lagos,+Nigeria&output=embed",
+    "openInMapsText": "Open in Maps",
+    "latitude": 6.4281,
+    "longitude": 3.4219
+  }
+};
+
+export async function getContactData() {
+  try {
+    const res = await fetchWithTimeout(`${API_BASE_URL}/contact`, {}, 4500);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const json = await res.json();
+    if (json && json.success && json.data) {
+      return { data: json.data, isLive: true };
+    }
+  } catch (err) {
+    console.info('[Infytel API] Using cached Contact data:', err.message);
+  }
+  return { data: CONTACT_DEFAULT_DATA, isLive: false };
+}
+
+export async function submitContactInquiry(payload) {
+  const res = await fetchWithTimeout(
+    `${API_BASE_URL}/contact`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    },
+    10000
+  );
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || !json?.success) {
+    throw new Error(json?.message || `Failed to send message (${res.status})`);
+  }
+  return json;
+}
+
+export const CAREER_DEFAULT_DATA = {
+  "hero": {
+    "badge": "CAREER",
+    "headline": "Do the best work of your career.",
+    "subtitle": "Join a growth-minded team delivering technology that powers Africa's leading banks and enterprises.",
+    "ctaText": "See open roles",
+    "ctaUrl": "#open-roles"
+  },
+  "whyInfytel": {
+    "badge": "WHY INFYTEL",
+    "headline": "A place to grow fast",
+    "benefits": [
+      {
+        "id": "784fff06-a231-468a-bdc5-6904fe1357dc",
+        "icon": "zap",
+        "title": "Grow faster",
+        "description": "Certifications, mentorship and real enterprise projects from day one.",
+        "displayOrder": 1,
+        "isActive": true
+      },
+      {
+        "id": "7668cc33-0c19-4517-a9a1-4cd551042954",
+        "icon": "award",
+        "title": "Global partners",
+        "description": "Work hands-on with Microsoft, Cisco, Netcore, Veeam and more.",
+        "displayOrder": 2,
+        "isActive": true
+      },
+      {
+        "id": "7d023d55-1039-46aa-930a-0360f2de375d",
+        "icon": "users",
+        "title": "Great people",
+        "description": "A collaborative, growth-minded team that celebrates wins together.",
+        "displayOrder": 3,
+        "isActive": true
+      },
+      {
+        "id": "fc7e079a-0f8c-4f78-a43b-a70fc499591a",
+        "icon": "clock",
+        "title": "Flexible work",
+        "description": "Hybrid options and a culture that values outcomes over hours.",
+        "displayOrder": 4,
+        "isActive": true
+      }
+    ]
+  },
+  "openRoles": {
+    "badge": "OPEN ROLES",
+    "headline": "Find your next move",
+    "activeFilter": "all",
+    "modalActions": {
+      "allFilterLabel": "All",
+      "applyButtonText": "Apply Now",
+      "closeButtonText": "Close",
+      "viewDetailsButtonText": "View Details"
+    },
+    "departments": [
+      { "id": "all", "name": "All", "slug": "all", "jobCount": 8 },
+      { "id": "e5dfdfdb-8f64-4b77-885a-1994fe13f2e3", "name": "Engineering", "slug": "engineering", "jobCount": 2 },
+      { "id": "4219856b-1e92-4ded-8dbd-1c33939aa30c", "name": "Sales", "slug": "sales", "jobCount": 1 },
+      { "id": "12e68965-238f-4ed8-a485-2ba0ff1fa972", "name": "Design", "slug": "design", "jobCount": 1 },
+      { "id": "c08fb119-decc-4109-97ba-a2aae1adaffd", "name": "Development", "slug": "development", "jobCount": 1 },
+      { "id": "9ee2780c-a880-4ae7-843f-28399de9c2d1", "name": "Marketing", "slug": "marketing", "jobCount": 1 },
+      { "id": "b1f672f5-a54c-47e2-9886-c84e44580425", "name": "SEO", "slug": "seo", "jobCount": 1 },
+      { "id": "4f5e73ee-90b7-47e4-90c9-5603a4189315", "name": "Support", "slug": "support", "jobCount": 1 }
+    ],
+    "jobs": [
+      {
+        "id": "444a1a6e-2413-4aa6-a86b-11165250f18d",
+        "title": "Senior Frontend Engineer",
+        "slug": "senior-frontend-engineer",
+        "departmentId": "e5dfdfdb-8f64-4b77-885a-1994fe13f2e3",
+        "location": "Bengaluru, India",
+        "employmentType": "Full time",
+        "experienceRange": "4–6 years experience",
+        "shortSummary": "Own the interfaces our customers use every day to track shipments and manage fleets.",
+        "aboutJob": "Own the interfaces our customers use every day to track shipments and manage fleets.",
+        "responsibilities": [
+          "Build and ship fast, accessible web interfaces with React and TypeScript",
+          "Review code and mentor engineers on the team",
+          "Work with design and product to shape features from idea to release"
+        ],
+        "requirements": [
+          "4+ years building production web apps",
+          "Strong grasp of performance and accessibility",
+          "Clear written communication"
+        ],
+        "benefits": [
+          "Hybrid work",
+          "Health cover for you and family",
+          "Learning budget"
+        ],
+        "displayOrder": 1,
+        "isActive": true,
+        "department": {
+          "id": "e5dfdfdb-8f64-4b77-885a-1994fe13f2e3",
+          "name": "Engineering",
+          "slug": "engineering"
+        }
+      },
+      {
+        "id": "ad2e06c6-f450-4cdd-af34-c6f4e34679d9",
+        "title": "Enterprise Cloud Solutions Architect",
+        "slug": "enterprise-cloud-solutions-architect",
+        "departmentId": "e5dfdfdb-8f64-4b77-885a-1994fe13f2e3",
+        "location": "Victoria Island, Lagos",
+        "employmentType": "Full time",
+        "experienceRange": "5–8 years experience",
+        "shortSummary": "Design resilient Microsoft Azure, Kubernetes, and hybrid cloud infrastructure for tier-1 financial clients.",
+        "aboutJob": "Lead technical architecture and cloud transformation engagements across banking, telecoms, and public sector institutions.",
+        "responsibilities": [
+          "Architect high-availability hybrid cloud and disaster recovery topologies",
+          "Partner with OEM engineering teams across Microsoft, Cisco, and Veeam",
+          "Lead pre-sales solutioning and executive technical workshops"
+        ],
+        "requirements": [
+          "5+ years designing enterprise cloud or datacenter infrastructure",
+          "Active Azure Solutions Architect or AWS Professional certification",
+          "Strong client-facing consulting and documentation skills"
+        ],
+        "benefits": [
+          "Hybrid work",
+          "Health cover for you and family",
+          "Sponsored OEM certifications"
+        ],
+        "displayOrder": 2,
+        "isActive": true,
+        "department": {
+          "id": "e5dfdfdb-8f64-4b77-885a-1994fe13f2e3",
+          "name": "Engineering",
+          "slug": "engineering"
+        }
+      }
+    ]
+  },
+  "hiringProcess": {
+    "badge": "HIRING PROCESS",
+    "headline": "Simple, Transparent, Fast",
+    "steps": [
+      {
+        "id": "14e9a54b-3363-43b3-b951-86d6d48a056d",
+        "stepNumber": 1,
+        "stepCode": "01",
+        "title": "Apply",
+        "description": "Send your details and CV link — it takes two minutes.",
+        "displayOrder": 1,
+        "isActive": true
+      },
+      {
+        "id": "31533083-69da-4e9a-8650-ca61f46ebebc",
+        "stepNumber": 2,
+        "stepCode": "02",
+        "title": "Intro call",
+        "description": "A friendly 30-minute chat with our talent team.",
+        "displayOrder": 2,
+        "isActive": true
+      },
+      {
+        "id": "cd86ae8f-cddc-4538-8849-e0b551c00163",
+        "stepNumber": 3,
+        "stepCode": "03",
+        "title": "Skill Session",
+        "description": "A practical conversation or task with the hiring team.",
+        "displayOrder": 3,
+        "isActive": true
+      },
+      {
+        "id": "b62a1060-9ea9-4b23-b759-dc8815daabbc",
+        "stepNumber": 4,
+        "stepCode": "04",
+        "title": "Offer",
+        "description": "We move fast — most decisions within two weeks.",
+        "displayOrder": 4,
+        "isActive": true
+      }
+    ]
+  }
+};
+
+export async function getCareerData(department = 'all') {
+  try {
+    const query = department && department !== 'all' ? `?department=${encodeURIComponent(department)}` : '';
+    const res = await fetchWithTimeout(`${API_BASE_URL}/career${query}`, {}, 4500);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const json = await res.json();
+    if (json && json.success && json.data) {
+      return { data: json.data, isLive: true };
+    }
+  } catch (err) {
+    console.info('[Infytel API] Using cached Career data:', err.message);
+  }
+  const fallbackJobs =
+    !department || department === 'all'
+      ? CAREER_DEFAULT_DATA.openRoles.jobs
+      : CAREER_DEFAULT_DATA.openRoles.jobs.filter(
+          (j) => j.department?.slug?.toLowerCase() === department.toLowerCase()
+        );
+  return {
+    data: {
+      ...CAREER_DEFAULT_DATA,
+      openRoles: {
+        ...CAREER_DEFAULT_DATA.openRoles,
+        activeFilter: department || 'all',
+        jobs: fallbackJobs,
+      },
+    },
+    isLive: false,
+  };
+}
+
+export async function getCareerJobDetails(slug) {
+  try {
+    const res = await fetchWithTimeout(`${API_BASE_URL}/career/jobs/${encodeURIComponent(slug)}`, {}, 4500);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const json = await res.json();
+    if (json && json.success && json.data) {
+      return { data: json.data, isLive: true };
+    }
+  } catch (err) {
+    console.info('[Infytel API] Using cached Job details:', err.message);
+  }
+  const found = CAREER_DEFAULT_DATA.openRoles.jobs.find((j) => j.slug === slug);
+  return { data: found || null, isLive: false };
+}
+
+export async function submitCareerApplication(payload) {
+  const res = await fetchWithTimeout(
+    `${API_BASE_URL}/career/apply`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    },
+    10000
+  );
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || !json?.success) {
+    throw new Error(json?.message || `Failed to submit application (${res.status})`);
+  }
+  return json;
+}
+
 export async function getAboutData() {
   try {
     const res = await fetchWithTimeout(`${API_BASE_URL}/about`);

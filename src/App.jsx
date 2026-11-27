@@ -15,15 +15,38 @@ import Testimonials from './components/Testimonials.jsx';
 import NewsSection from './components/NewsSection.jsx';
 import CtaBanner from './components/CtaBanner.jsx';
 import AboutPage from './components/AboutPage.jsx';
+import ContactPage from './components/ContactPage.jsx';
+import CareerPage from './components/CareerPage.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
 
-import { getHomeData, getAboutData, getSuccessStories, HOME_DEFAULT_DATA } from './services/api.js';
+import { getHomeData, getAboutData, getSuccessStories, getContactData, getCareerData, HOME_DEFAULT_DATA } from './services/api.js';
+
+const ROUTE_PATHS = {
+  home: '/',
+  about: '/about',
+  career: '/career',
+  contact: '/contact',
+};
+
+function getRouteFromLocation() {
+  if (typeof window === 'undefined') return 'home';
+  const path = window.location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
+  const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+  const segment = path === '/' && hash ? `/${hash}` : path;
+
+  if (segment === '/about') return 'about';
+  if (segment === '/career' || segment === '/careers') return 'career';
+  if (segment === '/contact' || segment === '/contact-us') return 'contact';
+  return 'home';
+}
 
 export default function App() {
-  const [currentRoute, setCurrentRoute] = useState('home'); // 'home' | 'about'
+  const [currentRoute, setCurrentRoute] = useState(getRouteFromLocation); // 'home' | 'about' | 'career' | 'contact'
   const [homeData, setHomeData] = useState(null);
   const [aboutData, setAboutData] = useState(null);
+  const [contactData, setContactData] = useState(null);
+  const [careerData, setCareerData] = useState(null);
   const [isLiveApi, setIsLiveApi] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isDark, setIsDark] = useState(true);
@@ -48,10 +71,12 @@ export default function App() {
   useEffect(() => {
     async function loadAllData() {
       setLoading(true);
-      const [hRes, aRes, sRes] = await Promise.all([
+      const [hRes, aRes, sRes, cRes, crRes] = await Promise.all([
         getHomeData(),
         getAboutData(),
-        getSuccessStories()
+        getSuccessStories(),
+        getContactData(),
+        getCareerData('all')
       ]);
 
       const rawSlides = (hRes.data?.heroSlides && hRes.data.heroSlides.length > 0)
@@ -69,7 +94,9 @@ export default function App() {
       };
       setHomeData(mergedHomeData);
       setAboutData(aRes.data);
-      setIsLiveApi(hRes.isLive || aRes.isLive || sRes.isLive);
+      setContactData(cRes.data);
+      setCareerData(crRes.data);
+      setIsLiveApi(hRes.isLive || aRes.isLive || sRes.isLive || cRes.isLive || crRes.isLive);
       setLoading(false);
 
       // Default to Why Infytel (displayOrder 1 or WHY_INFYTEL)
@@ -184,16 +211,31 @@ export default function App() {
     }
   };
 
+  // Keep React route synced with browser back/forward buttons
+  useEffect(() => {
+    const onPopState = () => {
+      setCurrentRoute(getRouteFromLocation());
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
   // Navigation handler
   const handleNavigate = (route, sectionId = null) => {
-    setCurrentRoute(route);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const nextRoute = ROUTE_PATHS[route] ? route : 'home';
+    const nextPath = ROUTE_PATHS[nextRoute];
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({ route: nextRoute }, '', nextPath);
+    }
+
+    setCurrentRoute(nextRoute);
+    window.scrollTo({ top: 0, behavior: sectionId ? 'auto' : 'smooth' });
 
     if (sectionId) {
       setTimeout(() => {
         const el = document.getElementById(sectionId);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 120);
     }
   };
 
@@ -411,7 +453,7 @@ export default function App() {
             />
           </main>
         </>
-      ) : (
+      ) : currentRoute === 'about' ? (
         <>
           <Navbar 
             currentRoute={currentRoute}
@@ -426,6 +468,34 @@ export default function App() {
               data={aboutData} 
               onOpenQuote={handleOpenQuote} 
             />
+          </main>
+        </>
+      ) : currentRoute === 'career' ? (
+        <>
+          <Navbar 
+            currentRoute={currentRoute}
+            onNavigate={handleNavigate}
+            onOpenQuote={handleOpenQuote}
+            isLiveApi={isLiveApi}
+            isDark={isDark}
+            onToggleTheme={() => setIsDark(!isDark)}
+          />
+          <main>
+            <CareerPage data={careerData} />
+          </main>
+        </>
+      ) : (
+        <>
+          <Navbar 
+            currentRoute={currentRoute}
+            onNavigate={handleNavigate}
+            onOpenQuote={handleOpenQuote}
+            isLiveApi={isLiveApi}
+            isDark={isDark}
+            onToggleTheme={() => setIsDark(!isDark)}
+          />
+          <main>
+            <ContactPage data={contactData} />
           </main>
         </>
       )}
